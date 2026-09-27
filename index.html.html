@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kanishka — Software Developer & Educator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --violet:#6D4CE0; --violet-dark:#5636C4; --violet-light:#B79CFF;
+    --bg:#FFFFFF; --bg-soft:#F7F5FC; --ink:#211C33; --muted:#6B6580;
+    --border:#E7E2F5; --shadow:0 8px 24px rgba(109,76,224,0.10);
+    --radius:16px;
+    padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+    box-sizing:border-box;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#171225; --bg-soft:#1D1730; --ink:#F1EDFB; --muted:#A9A1C4;
+      --border:#332B52; --shadow:0 8px 24px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#171225; --bg-soft:#1D1730; --ink:#F1EDFB; --muted:#A9A1C4;
+    --border:#332B52; --shadow:0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth; scroll-padding-top:calc(76px + env(safe-area-inset-top,0px));}
+  body{font-family:'Inter',system-ui,sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; overflow-x:hidden;}
+  h1,h2,h3{font-family:'Poppins',system-ui,sans-serif; line-height:1.25; letter-spacing:-0.01em;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px;}
+  section{padding:88px 0;}
+  @media (max-width:640px){ section{padding:56px 0;} }
+
+  /* Nav */
+  header{position:sticky; top:0; z-index:50; background:color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); padding-top:env(safe-area-inset-top,0px);}
+  nav{display:flex; align-items:center; justify-content:space-between; max-width:1120px; margin:0 auto; padding:16px 24px;}
+  .logo{font-family:'Poppins',sans-serif; font-weight:700; font-size:20px;}
+  .logo span{color:var(--violet);}
+  .nav-links{display:flex; gap:32px; list-style:none;}
+  .nav-links a{font-size:15px; font-weight:500; color:var(--muted); transition:color .2s;}
+  .nav-links a:hover{color:var(--violet);}
+  .connect-btn{background:var(--violet); color:#fff; padding:10px 22px; border-radius:999px; font-weight:600; font-size:14px; transition:background .2s, transform .2s;}
+  .connect-btn:hover{background:var(--violet-dark); transform:translateY(-1px);}
+  .burger{display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px;}
+  .burger span{width:22px; height:2px; background:var(--ink);}
+  #mobile-menu{display:none; flex-direction:column; gap:18px; padding:20px 24px 28px; border-top:1px solid var(--border);}
+  #mobile-menu a{font-weight:500; color:var(--ink);}
+  #mobile-menu.open{display:flex;}
+  @media (max-width:860px){
+    .nav-links, .connect-btn.desktop{display:none;}
+    .burger{display:flex;}
+  }
+
+  /* Hero */
+  .hero{display:grid; grid-template-columns:1.1fr .9fr; gap:56px; align-items:center; padding-top:96px;}
+  @media (max-width:860px){ .hero{grid-template-columns:1fr; padding-top:56px;} }
+  .eyebrow{color:var(--violet); font-weight:600; font-size:14px;}
+  .hero h1{font-size:clamp(34px,5vw,52px); margin-top:10px;}
+  .hero .role{color:var(--muted); font-size:19px; font-weight:500; margin-top:14px;}
+  .hero p.lead{color:var(--muted); margin-top:18px; max-width:52ch; font-size:16px;}
+  .cta-row{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap;}
+  .btn-primary{background:var(--violet); color:#fff; padding:13px 26px; border-radius:12px; font-weight:600; font-size:15px; transition:background .2s, transform .2s; box-shadow:var(--shadow);}
+  .btn-primary:hover{background:var(--violet-dark); transform:translateY(-2px);}
+  .btn-outline{border:1.5px solid var(--border); color:var(--ink); padding:13px 26px; border-radius:12px; font-weight:600; font-size:15px; transition:border-color .2s, transform .2s;}
+  .btn-outline:hover{border-color:var(--violet); transform:translateY(-2px);}
+  .highlights{display:flex; gap:22px; margin-top:44px; flex-wrap:wrap;}
+  .highlights .item{font-size:14px; font-weight:500; color:var(--muted);}
+  .hero-visual{position:relative; aspect-ratio:1/1; border-radius:28px; background:linear-gradient(150deg,var(--violet) 0%, var(--violet-light) 100%); display:flex; align-items:center; justify-content:center; overflow:hidden;}
+  .hero-visual::before{content:""; position:absolute; width:160%; height:160%; background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 60%); }
+  .hero-visual svg{width:60%; height:60%; position:relative;}
+
+  /* Section heading */
+  .sec-head{text-align:center; max-width:640px; margin:0 auto 48px;}
+  .sec-head h2{font-size:clamp(26px,3.4vw,34px);}
+  .sec-head p{color:var(--muted); margin-top:12px; font-size:16px;}
+  .bg-soft{background:var(--bg-soft);}
+
+  /* About */
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;}
+  @media (max-width:860px){ .about-grid{grid-template-columns:1fr;} }
+  .about-grid p{color:var(--muted); font-size:16px; margin-bottom:24px;}
+  .card{background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:22px; transition:transform .2s, box-shadow .2s;}
+  .card:hover{transform:translateY(-4px); box-shadow:var(--shadow);}
+  .about-cards{display:flex; flex-direction:column; gap:16px;}
+  .about-cards .card h3{font-size:17px; margin-bottom:4px;}
+  .about-cards .card p{color:var(--muted); font-size:14px; margin:0;}
+
+  /* Skills */
+  .skills-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  @media (max-width:960px){ .skills-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .skills-grid{grid-template-columns:1fr;} }
+  .skill-card h3{font-size:16px; margin-bottom:14px;}
+  .pill-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .pill{background:var(--bg-soft); border:1px solid var(--border); padding:6px 13px; border-radius:999px; font-size:13px; color:var(--muted);}
+
+  /* Projects */
+  .proj-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  @media (max-width:920px){ .proj-grid{grid-template-columns:1fr;} }
+  .proj-thumb{height:150px; border-radius:12px; margin-bottom:16px; background:linear-gradient(135deg,var(--violet-light),var(--violet));}
+  .proj-card h3{font-size:18px; margin-bottom:8px;}
+  .proj-card p.desc{color:var(--muted); font-size:14px; margin-bottom:14px;}
+  .tag-row{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px;}
+  .tag{font-size:12px; color:var(--violet); background:var(--bg-soft); padding:4px 10px; border-radius:999px;}
+  .proj-actions{display:flex; gap:10px;}
+  .link-btn{font-size:14px; font-weight:600; color:var(--violet);}
+  .link-btn.gh{color:var(--muted);}
+
+  /* Courses */
+  .course-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  @media (max-width:760px){ .course-grid{grid-template-columns:1fr;} }
+  .course-card{background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:32px;}
+  .course-card h3{font-size:20px; margin-bottom:6px;}
+  .course-card .level{display:inline-block; font-size:12px; color:var(--violet); background:var(--bg-soft); padding:4px 10px; border-radius:999px; margin-bottom:14px;}
+  .course-card ul{color:var(--muted); font-size:14px; padding-left:18px; margin-bottom:20px;}
+  .course-card ul li{margin-bottom:6px;}
+  .course-foot{display:flex; align-items:center; justify-content:space-between;}
+  .price{font-weight:700; font-size:18px; color:var(--violet);}
+  .trust-row{display:flex; justify-content:center; gap:48px; margin-top:48px; flex-wrap:wrap; text-align:center;}
+  .trust-row .num{font-family:'Poppins',sans-serif; font-weight:700; font-size:26px; color:var(--violet);}
+  .trust-row .lbl{color:var(--muted); font-size:13px;}
+
+  /* Services */
+  .serv-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  @media (max-width:860px){ .serv-grid{grid-template-columns:1fr;} }
+  .serv-card .ic{width:44px; height:44px; border-radius:12px; background:var(--bg-soft); display:flex; align-items:center; justify-content:center; font-size:20px; margin-bottom:16px;}
+  .serv-card h3{font-size:17px; margin-bottom:8px;}
+  .serv-card p{color:var(--muted); font-size:14px;}
+
+  /* Contact */
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px;}
+  @media (max-width:860px){ .contact-grid{grid-template-columns:1fr;} }
+  .contact-grid p{color:var(--muted); margin-bottom:22px;}
+  .contact-links{display:flex; flex-direction:column; gap:12px;}
+  .contact-links a{font-size:15px; font-weight:500; color:var(--ink); transition:color .2s;}
+  .contact-links a:hover{color:var(--violet);}
+  form{display:flex; flex-direction:column; gap:14px;}
+  input, textarea{font-family:'Inter',sans-serif; padding:13px 16px; border-radius:10px; border:1px solid var(--border); background:var(--bg); color:var(--ink); font-size:14px; outline:none; transition:border-color .2s;}
+  input:focus, textarea:focus{border-color:var(--violet);}
+  textarea{resize:vertical; min-height:110px;}
+
+  /* Footer */
+  footer{border-top:1px solid var(--border); padding:36px 0;}
+  .foot-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;}
+  .foot-row .muted{color:var(--muted); font-size:13px;}
+  .foot-links{display:flex; gap:20px;}
+  .foot-links a{color:var(--muted); font-size:13px; transition:color .2s;}
+  .foot-links a:hover{color:var(--violet);}
+
+  :focus-visible{outline:2px solid var(--violet); outline-offset:2px;}
+  @media (prefers-reduced-motion: reduce){ *{transition:none !important;} }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#home" class="logo">Kanishka<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#courses">Courses</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="connect-btn desktop">Let's Connect</a>
+    <button class="burger" onclick="document.getElementById('mobile-menu').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+  <div id="mobile-menu">
+    <a href="#home">Home</a><a href="#about">About</a><a href="#skills">Skills</a>
+    <a href="#projects">Projects</a><a href="#courses">Courses</a><a href="#services">Services</a>
+    <a href="#contact" class="connect-btn" style="width:fit-content;">Let's Connect</a>
+  </div>
+</header>
+
+<main>
+  <section id="home" class="wrap hero">
+    <div>
+      <p class="eyebrow">Software Developer & Educator</p>
+      <h1>Hi, I'm Kanishka 👋</h1>
+      <p class="role">Web Development & UI/UX Design Educator</p>
+      <p class="lead">Building practical digital solutions and helping learners develop real-world skills through affordable, beginner-friendly courses.</p>
+      <div class="cta-row">
+        <a href="#projects" class="btn-primary">Explore My Work</a>
+        <a href="#courses" class="btn-outline">View Courses</a>
+      </div>
+      <div class="highlights">
+        <span class="item">💻 Software Development</span>
+        <span class="item">🌐 Web Development</span>
+        <span class="item">🎨 UI/UX Design</span>
+        <span class="item">📚 Affordable Learning</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <svg viewBox="0 0 200 200" fill="none">
+        <rect x="30" y="40" width="140" height="100" rx="14" fill="rgba(255,255,255,.18)" stroke="#fff" stroke-width="2"/>
+        <line x1="30" y1="64" x2="170" y2="64" stroke="#fff" stroke-width="2"/>
+        <circle cx="46" cy="52" r="3" fill="#fff"/><circle cx="58" cy="52" r="3" fill="#fff"/><circle cx="70" cy="52" r="3" fill="#fff"/>
+        <rect x="46" y="80" width="70" height="8" rx="4" fill="#fff"/>
+        <rect x="46" y="96" width="100" height="8" rx="4" fill="rgba(255,255,255,.7)"/>
+        <rect x="46" y="112" width="55" height="8" rx="4" fill="rgba(255,255,255,.5)"/>
+        <path d="M85 150 L100 165 L145 120" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </section>
+
+  <section id="about" class="bg-soft">
+    <div class="wrap about-grid">
+      <div>
+        <p class="eyebrow">About Me</p>
+        <h2 style="margin:10px 0 18px;">A developer who also teaches</h2>
+        <p>I'm Kanishka, a software developer passionate about building useful digital solutions and creating simple, user-friendly experiences. Along with software development, I help students and beginners learn Web Development and UI/UX Design through affordable and practical courses.</p>
+        <a href="#" class="btn-outline">Know More About Me</a>
+      </div>
+      <div class="about-cards">
+        <div class="card"><h3>Developer</h3><p>Building practical software and web solutions.</p></div>
+        <div class="card"><h3>Designer</h3><p>Creating clean and user-friendly interfaces.</p></div>
+        <div class="card"><h3>Educator</h3><p>Helping beginners learn technology through affordable courses.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">My Skills</p><h2>What I work with</h2></div>
+      <div class="skills-grid">
+        <div class="card skill-card"><h3>Programming</h3><div class="pill-row"><span class="pill">Java</span><span class="pill">Data Structures & Algorithms</span><span class="pill">OOP</span></div></div>
+        <div class="card skill-card"><h3>Web Development</h3><div class="pill-row"><span class="pill">HTML</span><span class="pill">CSS</span><span class="pill">JavaScript</span><span class="pill">Responsive Design</span></div></div>
+        <div class="card skill-card"><h3>UI/UX Design</h3><div class="pill-row"><span class="pill">Figma</span><span class="pill">Wireframing</span><span class="pill">Prototyping</span><span class="pill">UI Design</span><span class="pill">UX Design</span></div></div>
+        <div class="card skill-card"><h3>Tools</h3><div class="pill-row"><span class="pill">Git</span><span class="pill">GitHub</span><span class="pill">VS Code</span><span class="pill">Figma</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="bg-soft">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">Featured Projects</p><h2>Recent work</h2></div>
+      <div class="proj-grid">
+        <div class="card proj-card">
+          <div class="proj-thumb"></div>
+          <h3>Smart Assist</h3>
+          <p class="desc">An intelligent application designed to solve a real-world problem using machine learning.</p>
+          <div class="tag-row"><span class="tag">Python</span><span class="tag">ML</span><span class="tag">Flask</span></div>
+          <div class="proj-actions"><a href="#" class="link-btn">View Project</a><a href="#" class="link-btn gh">GitHub</a></div>
+        </div>
+        <div class="card proj-card">
+          <div class="proj-thumb"></div>
+          <h3>HardwareAR</h3>
+          <p class="desc">An interactive AR-based application designed to help users identify and understand laptop hardware components.</p>
+          <div class="tag-row"><span class="tag">Unity</span><span class="tag">AR Foundation</span><span class="tag">C#</span></div>
+          <div class="proj-actions"><a href="#" class="link-btn">View Project</a><a href="#" class="link-btn gh">GitHub</a></div>
+        </div>
+        <div class="card proj-card">
+          <div class="proj-thumb"></div>
+          <h3>CarePlan UI</h3>
+          <p class="desc">A modern healthcare/productivity application designed with a focus on usability, accessibility, and clean visual hierarchy.</p>
+          <div class="tag-row"><span class="tag">Figma</span><span class="tag">Prototyping</span><span class="tag">UX Research</span></div>
+          <div class="proj-actions"><a href="#" class="link-btn">View Project</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="courses">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">Learn. Build. Grow.</p><h2>Affordable, practical courses</h2><p>Designed to take you from beginner to job-ready, with hands-on projects at every step.</p></div>
+      <div class="course-grid">
+        <div class="course-card">
+          <span class="level">Beginner-friendly</span>
+          <h3>Web Development</h3>
+          <ul>
+            <li>HTML, CSS & JavaScript fundamentals</li>
+            <li>Responsive layouts with real projects</li>
+            <li>Git & GitHub workflow</li>
+            <li>Deploying your first website</li>
+          </ul>
+          <div class="course-foot"><span class="price">Affordable pricing</span><a href="#contact" class="btn-primary" style="padding:10px 20px; font-size:14px;">Enroll Now</a></div>
+        </div>
+        <div class="course-card">
+          <span class="level">Beginner-friendly</span>
+          <h3>UI/UX Design</h3>
+          <ul>
+            <li>Design thinking & wireframing</li>
+            <li>Prototyping in Figma</li>
+            <li>Usability & accessibility basics</li>
+            <li>Building a portfolio-ready case study</li>
+          </ul>
+          <div class="course-foot"><span class="price">Affordable pricing</span><a href="#contact" class="btn-primary" style="padding:10px 20px; font-size:14px;">Enroll Now</a></div>
+        </div>
+      </div>
+      <div class="trust-row">
+        <div><div class="num">Hands-on</div><div class="lbl">Project-based learning</div></div>
+        <div><div class="num">Beginner-first</div><div class="lbl">No prior experience needed</div></div>
+        <div><div class="num">Affordable</div><div class="lbl">Priced for learners</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="bg-soft">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">Services</p><h2>How I can help</h2></div>
+      <div class="serv-grid">
+        <div class="card serv-card"><div class="ic">🌐</div><h3>Web Development</h3><p>Custom, responsive websites built with clean, maintainable code.</p></div>
+        <div class="card serv-card"><div class="ic">🎨</div><h3>UI/UX Design</h3><p>Wireframes and prototypes focused on clarity and usability.</p></div>
+        <div class="card serv-card"><div class="ic">💬</div><h3>Consultation</h3><p>Guidance on projects, learning paths, or getting started in tech.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h2 style="margin:10px 0 16px;">Let's Connect</h2>
+        <p>Open to freelance work, collaborations, and questions about courses. Reach out any time.</p>
+        <div class="contact-links">
+          <a href="mailto:hello@kanishka.dev">hello@kanishka.dev</a>
+          <a href="#">linkedin.com/in/kanishka</a>
+          <a href="#">github.com/kanishka</a>
+        </div>
+      </div>
+      <form onsubmit="event.preventDefault(); this.reset(); alert('Message sent — thank you!');">
+        <input type="text" placeholder="Name" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="Message" required></textarea>
+        <button type="submit" class="btn-primary" style="border:none; cursor:pointer;">Send Message</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span class="muted">© 2026 Kanishka. All rights reserved.</span>
+    <div class="foot-links">
+      <a href="#home">Home</a><a href="#projects">Projects</a><a href="#courses">Courses</a><a href="#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
